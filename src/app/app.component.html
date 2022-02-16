@@ -1,18 +1,17 @@
-<h1>{{title}} Работа формами</h1>
+<h1>{{title}} Работа c формами</h1>
 
 <form [formGroup]="form" (ngSubmit)="submit()">
   <div>
     <label for="name">Name</label>
     <input id="name" type="text" formControlName="name">
     <span *ngIf="form.controls['name'].hasError('required')" class="form__error">Нет введеных данных</span>
-    <span *ngIf="form.controls['name'].hasError('noNums')" class="form__error">В имени нет цифр</span>
-    <span *ngIf="form.controls['name'].hasError('asyncValidator')" class="form__error">В имени нет цифр(Асинк)</span>
+    <span *ngIf="form.controls['name'].hasError('asyncValidator')" class="form__error">В имени не должно быть цифр(Асинк)</span>
   </div>
   <div>
     <label for="surname">Surname</label>
     <input id="surname" type="text" formControlName="surname">
     <span *ngIf="form.controls['surname'].hasError('required')" class="form__error">Нет введеных данных</span>
-    <span *ngIf="form.controls['surname'].hasError('noNums')" class="form__error">В фамилии нет цифр</span>
+    <span *ngIf="form.controls['surname'].hasError('noNums')" class="form__error">В фамилии не должно быть цифр</span>
   </div>
   <div>
     <label for="email">Email</label>
