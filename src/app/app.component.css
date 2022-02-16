@@ -1,0 +1,12 @@
+.form__error{
+  color: red;
+}
+.ng-invalid{
+  border: 1px solid red;
+}
+table {
+  border: 2px solid black;
+}
+td{
+  border: 1px solid black;
+}
