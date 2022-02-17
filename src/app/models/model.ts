@@ -6,6 +6,7 @@ export interface User {
   age: number,
   sex: string,
   subscription : boolean,
+  phones: number[],
   address?: Address,
 }
 

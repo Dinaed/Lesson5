@@ -44,7 +44,15 @@
     <input id="subscription" type="checkbox" formControlName="subscription">
     <span *ngIf="form.controls['subscription'].hasError('required')" class="form__error">Нет введеных данных</span>
   </div>
-
+  <div formArrayName="phones">
+    <div *ngFor="let phone of getFormsArrayControls()['controls']; let index = index">
+      <label for="phone">Телефон</label>
+      <input type="text" id="phone" formControlName="{{index}}">
+    </div>
+    <div>
+      <button (click)="addPhone()">Добафить телефон</button>
+    </div>
+  </div>
 
   <div formGroupName="address">
     <h3>Address</h3>
@@ -88,6 +96,11 @@
       <td>{{user.age}}</td>
       <td>{{user.sex}}</td>
       <td>{{user.subscription}}</td>
+      <td>
+        <tr *ngFor="let phone of user.phones">
+          <td>{{phone}}</td>
+        </tr>
+      </td>
       <td>
         <tr>
           <td *ngIf="!!user.address.country">{{user.address.country}}</td>

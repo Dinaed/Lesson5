@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from './models/model';
 import { AnotherValidaor } from './models/validators';
 
@@ -12,6 +12,7 @@ export class Users implements User {
     public age: number,
     public sex: string,
     public subscription : boolean,
+    public phones:number[],
     public address?: Address,
   )
   {}
@@ -45,6 +46,7 @@ export class AppComponent implements OnInit{
     age: new FormControl('', [Validators.required, Validators.min(16), AnotherValidaor.toOld]),
     sex: new FormControl('', Validators.required),
     subscription: new FormControl('', Validators.required),
+    phones: new FormArray([new FormControl('+380', Validators.required)]),
     address: new FormGroup({
       country: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
@@ -61,6 +63,7 @@ export class AppComponent implements OnInit{
                                      this.form.value.age, 
                                      this.form.value.sex, 
                                      this.form.value.subscription,
+                                     this.form.value.phones,
                                     this.form.value.address = new Address(
                                        this.form.value.address.country,
                                        this.form.value.address.city,
@@ -73,7 +76,12 @@ export class AppComponent implements OnInit{
   get address():FormGroup{
     return this.form.controls['address'] as FormGroup;
   }
-
+  getFormsArrayControls():FormArray{
+    return this.form.controls['phones'] as FormArray;
+  }
+  addPhone(){
+    (<FormArray>this.form.controls['phones']).push(new FormControl('+380', Validators.required));
+  }
   ngOnInit(): void {
     this.form.get('name')?.valueChanges.subscribe( (newName) => {
       this.form.patchValue({
