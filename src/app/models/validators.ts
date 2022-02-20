@@ -20,7 +20,7 @@ export class AnotherValidaor {
         }
       }
     static tel(control: AbstractControl): ValidationErrors | null {
-      const reg = new RegExp('/^(\\s*)?(\\+)?([- _():=+]?\\d[- _():=+]?){10,14}(\\s*)?$/');
+      const reg = new RegExp('(?:\\+|\\d)[\\d\\-\\(\\) ]{9,}\\d');
        if (!(reg.test(control.value))) {
          return { noNums: true };
          } 

@@ -1,6 +1,9 @@
 .form__error{
   color: red;
 }
+.form__norm{
+  color:green;
+}
 .ng-invalid{
   border: 1px solid red;
 }

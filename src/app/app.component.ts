@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from './models/model';
 import { AnotherValidaor } from './models/validators';
@@ -33,11 +33,12 @@ export class Address implements Address {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, DoCheck{
+  
   title = 'Lesson5';
 
   arrayOfUsers:any = [];
-
+  invalidArray:string ='';
   form = new FormGroup({
     name: new FormControl('', [Validators.required], AnotherValidaor.asyncValidator),
     surname: new FormControl('', [Validators.required, AnotherValidaor.noNums]),
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit{
     age: new FormControl('', [Validators.required, Validators.min(16), AnotherValidaor.toOld]),
     sex: new FormControl('', Validators.required),
     subscription: new FormControl('', Validators.required),
-    phones: new FormArray([new FormControl('+380', Validators.required)]),
+    phones: new FormArray([new FormControl('+380', [Validators.required, AnotherValidaor.tel])]),
     address: new FormGroup({
       country: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
@@ -80,7 +81,8 @@ export class AppComponent implements OnInit{
     return this.form.controls['phones'] as FormArray;
   }
   addPhone(){
-    (<FormArray>this.form.controls['phones']).push(new FormControl('+380', Validators.required));
+    (<FormArray>this.form.controls['phones']).push(new FormControl('+380', [Validators.required, AnotherValidaor.tel]));
+    
   }
   ngOnInit(): void {
     this.form.get('name')?.valueChanges.subscribe( (newName) => {
@@ -88,7 +90,10 @@ export class AppComponent implements OnInit{
         email: `${newName}@gmail.com`
       });
     });
-
+    
+    
+    
+    
 
   //   this.form.get('birthday')?.valueChanges.subscribe(newAge => {
   //     let now = new Date();
@@ -100,5 +105,9 @@ export class AppComponent implements OnInit{
   //     })
   //   })
   // }
+  }
+
+  ngDoCheck(): void {
+    this.invalidArray = this.form.controls['phones'].status;
   }
 }
