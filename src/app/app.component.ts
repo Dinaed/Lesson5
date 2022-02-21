@@ -33,7 +33,7 @@ export class Address implements Address {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, DoCheck{
+export class AppComponent implements OnInit{
   
   title = 'Lesson5';
 
@@ -81,8 +81,10 @@ export class AppComponent implements OnInit, DoCheck{
     return this.form.controls['phones'] as FormArray;
   }
   addPhone(){
-    (<FormArray>this.form.controls['phones']).push(new FormControl('+380', [Validators.required, AnotherValidaor.tel]));
-    
+    (<FormArray>this.form.controls['phones']).push(new FormControl('+380', [Validators.required, AnotherValidaor.tel])); 
+  }
+  deletePhone(i:number){
+    (<FormArray>this.form.controls['phones']).removeAt(i); 
   }
   ngOnInit(): void {
     this.form.get('name')?.valueChanges.subscribe( (newName) => {
@@ -107,7 +109,5 @@ export class AppComponent implements OnInit, DoCheck{
   // }
   }
 
-  ngDoCheck(): void {
-    this.invalidArray = this.form.controls['phones'].status;
-  }
+
 }

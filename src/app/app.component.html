@@ -48,8 +48,12 @@
     <div *ngFor="let phone of getFormsArrayControls()['controls']; let index = index">
       <label for="phone">Телефон</label>
       <input type="text" id="phone" formControlName="{{index}}">
-      <span *ngIf="invalidArray === 'INVALID'" class="form__error">Не валидный телефоннный номер</span>
-      <span *ngIf="invalidArray === 'VALID'" class="form__norm">Bалидный телефоннный номер</span>
+      <button (click)="deletePhone(index)">Remove</button>
+      <span *ngIf="phone.get('name')?.errors &&
+                   phone.get('name')?.hasError('required') &&
+                   phone.get('name')?.hasError('tel')
+                  " 
+                  class="form__error">Не валидный телефоннный номер</span>
     </div>
     <div>
       <button (click)="addPhone()">Добафить телефон</button>
