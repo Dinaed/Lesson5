@@ -38,7 +38,6 @@ export class AppComponent implements OnInit{
   title = 'Lesson5';
 
   arrayOfUsers:any = [];
-  invalidArray:string ='';
   form = new FormGroup({
     name: new FormControl('', [Validators.required], AnotherValidaor.asyncValidator),
     surname: new FormControl('', [Validators.required, AnotherValidaor.noNums]),
